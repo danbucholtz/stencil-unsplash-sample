@@ -1,6 +1,7 @@
-import { Component, Listen, State } from '@stencil/core';
+import { Component, Event, EventEmitter, Listen, State } from '@stencil/core';
 
-import { loadUnsplashData, UnsplashDto } from '../../utils/unsplash-api';
+import { loadUnsplashData } from '../../utils/unsplash-api';
+import { UnsplashDto } from '../../utils/interfaces';
 
 @Component({
   tag: 'list-page',
@@ -9,6 +10,7 @@ import { loadUnsplashData, UnsplashDto } from '../../utils/unsplash-api';
 export class ListPage {
 
   @State() dtos: UnsplashDto[] = [];
+  @Event() selected: EventEmitter<UnsplashDto>;
 
   componentDidLoad() {
     return this.getData();
@@ -25,9 +27,13 @@ export class ListPage {
     });
   }
 
+  itemClicked(item: UnsplashDto) {
+    this.selected.emit(item);
+  }
+
   render() {
     const listItems = this.dtos.map(dto => {
-      return <ion-item>
+      return <ion-item onClick={() => this.itemClicked(dto)}>
         <ion-thumbnail slot="start">
           <img src={dto.thumbUrl}></img>
         </ion-thumbnail>
@@ -44,8 +50,8 @@ export class ListPage {
       <ion-header>
         <ion-toolbar>
           <ion-title>Unsplash</ion-title>
-          <ion-searchbar place-holder="Surfing" ></ion-searchbar>
         </ion-toolbar>
+        <ion-searchbar placeholder="Surfing" ></ion-searchbar>
       </ion-header>,
       <ion-content padding>
         <ion-list>

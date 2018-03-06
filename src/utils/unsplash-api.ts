@@ -1,7 +1,9 @@
 const API_KEY = 'e64814a95e1de4b080b4f3304e3e775c4118cddd9bfe6fc7284ecf85f8f57316';
 const API_ENDPOINT = `https://api.unsplash.com/search/photos?client_id=${API_KEY}&per_page=30`;
 
-function fetchUnsplashData(searchTerm) {
+import { UnsplashDto } from './interfaces';
+
+function fetchUnsplashDataReal(searchTerm) {
   return fetch(`${API_ENDPOINT}&query=${searchTerm}`).then((response) => {
 
 
@@ -13,9 +15,23 @@ function fetchUnsplashData(searchTerm) {
   });
 }
 
+/*function fetchUnsplashDataLocal(_term: string) {
+  return fetch('/assets/unsplash.json').then((response) => {
+
+
+    if (!response.ok) {
+      throw new Error('Failed to load unsplash api data');
+    }
+
+    return response.json();
+  });
+}
+*/
+
 export function loadUnsplashData(searchTerm: string): Promise<UnsplashDto[]> {
   const term = searchTerm && searchTerm.trim().length ? searchTerm.trim() : 'surfing';
-  return fetchUnsplashData(term).then((rawDataList) => {
+
+  return fetchUnsplashDataReal(term).then((rawDataList) => {
     return rawDataList.results.map(rawData => formatUnsplashData(rawData)) as UnsplashDto[];
   }).then((formattedList) => {
     return formattedList.sort((previous: UnsplashDto, next: UnsplashDto) => {
@@ -55,10 +71,3 @@ function getName(firstName: string, lastName: string): string {
 }
 
 
-export interface UnsplashDto {
-  thumbUrl: string;
-  name: string;
-  location: string;
-  bio: string;
-  uploadDate: Date;
-}

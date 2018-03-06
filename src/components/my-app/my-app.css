@@ -1,2 +1,21 @@
-my-app {
+
+.container {
+  display: flex;
+  height: 100%;
+}
+
+@media (min-width: 768px) {
+  .main-content {
+    height: 100%;
+    width: 50%;
+  }
+
+  .ion-page {
+    position: static;
+  }
+
+  .split-content {
+    height: 100%;
+    width: 50%;
+  }
 }

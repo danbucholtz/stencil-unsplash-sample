@@ -21,6 +21,39 @@ declare global {
 import 'ionicons';
 import '@ionic/core';
 
+import {
+  UnsplashDto,
+} from './utils/interfaces';
+
+import {
+  DetailPage as DetailPage
+} from './components/detail-page/detail-page';
+
+declare global {
+  interface HTMLDetailPageElement extends DetailPage, HTMLStencilElement {
+  }
+  var HTMLDetailPageElement: {
+    prototype: HTMLDetailPageElement;
+    new (): HTMLDetailPageElement;
+  };
+  interface HTMLElementTagNameMap {
+    "detail-page": HTMLDetailPageElement;
+  }
+  interface ElementTagNameMap {
+    "detail-page": HTMLDetailPageElement;
+  }
+  namespace JSX {
+    interface IntrinsicElements {
+      "detail-page": JSXElements.DetailPageAttributes;
+    }
+  }
+  namespace JSXElements {
+    export interface DetailPageAttributes extends HTMLAttributes {
+      selectedPhoto?: UnsplashDto;
+    }
+  }
+}
+
 
 import {
   ListPage as ListPage
@@ -76,6 +109,36 @@ declare global {
   }
   namespace JSXElements {
     export interface MyAppAttributes extends HTMLAttributes {
+      
+    }
+  }
+}
+
+
+import {
+  SelectImage as SelectImage
+} from './components/select-image/select-image';
+
+declare global {
+  interface HTMLSelectImageElement extends SelectImage, HTMLStencilElement {
+  }
+  var HTMLSelectImageElement: {
+    prototype: HTMLSelectImageElement;
+    new (): HTMLSelectImageElement;
+  };
+  interface HTMLElementTagNameMap {
+    "select-image": HTMLSelectImageElement;
+  }
+  interface ElementTagNameMap {
+    "select-image": HTMLSelectImageElement;
+  }
+  namespace JSX {
+    interface IntrinsicElements {
+      "select-image": JSXElements.SelectImageAttributes;
+    }
+  }
+  namespace JSXElements {
+    export interface SelectImageAttributes extends HTMLAttributes {
       
     }
   }
