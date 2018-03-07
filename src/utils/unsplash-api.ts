@@ -52,7 +52,7 @@ export function formatUnsplashData(rawData: any): UnsplashDto {
   const millis = Date.parse(rawData.updated_at);
   const uploadDate = new Date(millis);
   return {
-    thumbUrl: rawData.urls['thumb'],
+    thumbUrl: rawData.urls.thumb,
     name: getName(rawData.user.first_name, rawData.user.last_name),
     location: rawData.user.location || 'Earth',
     bio: rawData.user.bio || 'Cosmic Travler',
